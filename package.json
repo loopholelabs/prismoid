@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "version": "1.0.0",
+  "license": "BSD-3-Clause",
+  "scripts": {
+    "build:core": "yarn workspace @prismoid/core build",
+    "build:grammars": "yarn workspace @prismoid/grammars build",
+    "build:react": "yarn workspace @prismoid/react build",
+    "build": "yarn build:core && yarn build:grammars && yarn build:react",
+    "test:core": "yarn workspace @prismoid/core test",
+    "test:grammars": "yarn workspace @prismoid/grammars test",
+    "test": "yarn test:core && yarn test:grammars"
+  },
+  "workspaces": [
+    "packages/core",
+    "packages/grammars",
+    "packages/react"
+  ]
+}

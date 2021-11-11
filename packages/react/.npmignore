@@ -1,0 +1,12 @@
+.coverage
+.editorconfig
+.github
+.mocharc.js
+.npmrc
+.nyc_output
+.releaserc
+.yarn
+.yarnrc.yml
+test
+yarn.lock
+yarn-error.log
