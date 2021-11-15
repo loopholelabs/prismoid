@@ -1,12 +1,12 @@
 // Module imports
-import { expect } from 'chai'
+const { expect } = require('chai')
 
 
 
 
 
 // Local imports
-import { LinkedList } from '../../src/structures/LinkedList.js'
+const { LinkedList } = require('../../dist')
 
 
 

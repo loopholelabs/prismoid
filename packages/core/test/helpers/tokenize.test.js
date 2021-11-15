@@ -1,22 +1,26 @@
+// Module imports
+const { Grammar } = require('@prismoid/grammars')
+
+
+
+
+
 // Local imports
-import { expect } from 'chai'
-import { Token } from '../../src/structures/Token.js'
-import { tokenize } from '../../src/helpers/tokenize.js'
+const {
+	Token,
+	tokenize,
+} = require('../../dist')
+const { expect } = require('chai')
 
 
 
 
-
-function testTokens({ grammar, code, expected }) {
-	const tokens = tokenize(code, grammar)
-	expect(tokens).to.deep.equal(expected)
-}
 
 describe('tokenize()', function () {
 	describe('Greedy matching', function () {
 		it('should correctly handle tokens with the same name', function () {
 			const code = '// /*\n/* comment */'
-			const grammar = {
+			const grammar = new Grammar('foo', {
 				'comment': [
 					/\/\/.*/,
 					{
@@ -24,7 +28,7 @@ describe('tokenize()', function () {
 						greedy: true
 					}
 				]
-			}
+			})
 			const tokens = tokenize(code, grammar)
 
 			expect(tokens).to.deep.equal([
@@ -35,7 +39,7 @@ describe('tokenize()', function () {
 		})
 
 		it('should support patterns with top-level alternatives that do not contain the lookbehind group', function () {
-			const grammar = {
+			const grammar = new Grammar('foo', {
 				'a': /'[^']*'/,
 				'b': {
 					// This pattern has 2 top-level alternatives:  foo  and  (^|[^\\])"[^"]*"
@@ -43,7 +47,7 @@ describe('tokenize()', function () {
 					lookbehind: true,
 					greedy: true
 				}
-			}
+			})
 			const code = 'foo "bar" \'baz\''
 			const tokens = tokenize(code, grammar)
 
@@ -57,7 +61,7 @@ describe('tokenize()', function () {
 		})
 
 		it('should correctly rematch tokens', function () {
-			const grammar = {
+			const grammar = new Grammar('foo', {
 				'a': {
 					pattern: /'[^'\r\n]*'/,
 				},
@@ -69,7 +73,7 @@ describe('tokenize()', function () {
 					pattern: /<[^>\r\n]*>/,
 					greedy: true,
 				}
-			}
+			})
 			const code = `<'> '' ''\n<"> "" ""`
 			const tokens = tokenize(code, grammar)
 			expect(tokens).to.deep.equal([
@@ -88,13 +92,13 @@ describe('tokenize()', function () {
 		it('should always match tokens against the whole text', function () {
 			// this is to test for a bug where greedy tokens where matched like non-greedy ones if the token stream ended on
 			// a string
-			const grammar = {
+			const grammar = new Grammar('foo', {
 				'a': /a/,
 				'b': {
 					pattern: /^b/,
 					greedy: true
 				}
-			}
+			})
 			const code = 'bab'
 			const tokens = tokenize(code, grammar)
 
@@ -107,12 +111,12 @@ describe('tokenize()', function () {
 
 		it('issue 3052 (https://github.com/PrismJS/prism/issues/3052)', function () {
 			// If a greedy pattern creates an empty token at the end of the string, then this token should be discarded
-			const grammar = {
+			const grammar = new Grammar('foo', {
 				'oh-no': {
 					pattern: /$/,
 					greedy: true
 				}
-			}
+			})
 			const code = 'foo'
 			const tokens = tokenize(code, grammar)
 

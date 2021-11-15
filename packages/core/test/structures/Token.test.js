@@ -1,12 +1,12 @@
 // Module imports
-import { expect } from 'chai'
+const { expect } = require('chai')
 
 
 
 
 
 // Local imports
-import { Token } from '../../src/structures/Token.js'
+const { Token } = require('../../dist')
 
 
 
