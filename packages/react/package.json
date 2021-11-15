@@ -6,7 +6,8 @@
   "module": "dist/index.mjs",
   "license": "BSD-3-Clause",
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "semantic-release": "semantic-release"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
@@ -15,10 +16,13 @@
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.0.6",
+    "@semantic-release/changelog": "^6.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "rollup": "^2.59.0",
-    "rollup-plugin-peer-deps-external": "^2.2.4"
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "semantic-release": "^18.0.0",
+    "semantic-release-monorepo": "^7.0.5"
   },
   "peerDependencies": {
     "@prismoid/core": "workspace:*",
