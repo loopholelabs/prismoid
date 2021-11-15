@@ -16,5 +16,6 @@
     "packages/core",
     "packages/grammars",
     "packages/react"
-  ]
+  ],
+  "packageManager": "yarn@3.1.0"
 }
