@@ -1,0 +1,35 @@
+name: '@prismoid/core - Release'
+on:
+  workflow_run:
+    workflows: ['@prismoid/core - Test']
+    branches:
+      - 'main'
+    types:
+      - completed
+
+defaults:
+  run:
+    working-directory: packages/core
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Release
+        run: yarn semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

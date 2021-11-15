@@ -1,4 +1,4 @@
-name: GH Actions - Test @prismoid/core
+name: '@prismoid/core - Test'
 on: [push]
 
 jobs:
