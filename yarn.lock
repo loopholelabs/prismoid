@@ -1737,7 +1737,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prismoid/core@workspace:packages/core":
+"@prismoid/core@workspace:*, @prismoid/core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@prismoid/core@workspace:packages/core"
   dependencies:
@@ -1759,7 +1759,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@prismoid/grammars@workspace:packages/grammars":
+"@prismoid/grammars@workspace:*, @prismoid/grammars@workspace:packages/grammars":
   version: 0.0.0-use.local
   resolution: "@prismoid/grammars@workspace:packages/grammars"
   dependencies:
@@ -1787,6 +1787,8 @@ __metadata:
     "@babel/core": ^7.16.0
     "@babel/preset-env": ^7.16.0
     "@babel/preset-react": ^7.16.0
+    "@prismoid/core": "workspace:*"
+    "@prismoid/grammars": "workspace:*"
     "@rollup/plugin-babel": ^5.3.0
     "@rollup/plugin-commonjs": ^21.0.1
     "@rollup/plugin-node-resolve": ^13.0.6
@@ -1799,8 +1801,8 @@ __metadata:
     semantic-release: ^18.0.0
     semantic-release-monorepo: ^7.0.5
   peerDependencies:
-    "@prismoid/core": "workspace:*"
-    "@prismoid/grammars": "workspace:*"
+    "@prismoid/core": ">=1.x.x"
+    "@prismoid/grammars": ">=1.x.x"
     react: ">=17.x.x"
     react-dom: ">=17.x.x"
   languageName: unknown
