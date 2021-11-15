@@ -1,10 +1,11 @@
 {
   "name": "@prismoid/grammars",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "author": "Trezy <t@trezy.com> (https://trezy.com)",
   "license": "BSD-3-Clause",
   "main": "dist/index.js",
-  "module": "src/index.mjs",
+  "module": "dist/index.mjs",
+  "repository": "git@github.com:loopholelabs/prismoid.git",
   "scripts": {
     "build": "rollup -c",
     "semantic-release": "semantic-release",
