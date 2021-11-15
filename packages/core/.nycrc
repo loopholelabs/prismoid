@@ -1,6 +1,6 @@
 {
   "all": true,
   "exclude": [],
-  "include": ["src/**/*.js"],
+  "include": ["dist/**/*.js"],
   "reporter": ["lcovonly", "text"]
 }
