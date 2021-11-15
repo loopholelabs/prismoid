@@ -91,12 +91,6 @@ export function PrismoidRenderer(props) {
 	])
 
 	return codeBlock
-
-	return (
-		<div className="hi-ian">
-			{'Hello, Ian!'}
-		</div>
-	)
 }
 
 PrismoidRenderer.propTypes = {
