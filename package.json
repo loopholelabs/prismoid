@@ -10,7 +10,8 @@
     "build": "yarn build:core && yarn build:grammars && yarn build:react",
     "test:core": "yarn workspace @prismoid/core test",
     "test:grammars": "yarn workspace @prismoid/grammars test",
-    "test": "yarn test:core && yarn test:grammars"
+    "test:react": "yarn workspace @prismoid/react test",
+    "test": "yarn test:core && yarn test:grammars && yarn test:react"
   },
   "workspaces": [
     "packages/core",

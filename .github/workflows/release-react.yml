@@ -1,7 +1,7 @@
-name: '@prismoid/grammars - Release'
+name: '@prismoid/react - Release'
 on:
   workflow_run:
-    workflows: ['@prismoid/grammars - Test']
+    workflows: ['@prismoid/react - Test']
     branches:
       - 'main'
     types:
@@ -9,7 +9,7 @@ on:
 
 defaults:
   run:
-    working-directory: packages/grammars
+    working-directory: packages/react
 
 jobs:
   release:

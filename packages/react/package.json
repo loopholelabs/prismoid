@@ -7,12 +7,15 @@
   "license": "BSD-3-Clause",
   "scripts": {
     "build": "rollup -c",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "test": "echo 'No tests'"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.0",
     "@babel/preset-react": "^7.16.0",
+    "@prismoid/core": "workspace:*",
+    "@prismoid/grammars": "workspace:*",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.0.6",
@@ -25,8 +28,8 @@
     "semantic-release-monorepo": "^7.0.5"
   },
   "peerDependencies": {
-    "@prismoid/core": "workspace:*",
-    "@prismoid/grammars": "workspace:*",
+    "@prismoid/core": ">=1.x.x",
+    "@prismoid/grammars": ">=1.x.x",
     "react": ">=17.x.x",
     "react-dom": ">=17.x.x"
   },
