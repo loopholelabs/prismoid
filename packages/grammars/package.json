@@ -2,7 +2,7 @@
   "name": "@prismoid/grammars",
   "version": "0.0.0-development",
   "author": "Trezy <t@trezy.com> (https://trezy.com)",
-  "license": "BSD-3-Clause",
+  "license": "Apache-2.0",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "repository": "git@github.com:loopholelabs/prismoid.git",

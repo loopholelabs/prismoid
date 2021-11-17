@@ -2,7 +2,7 @@
   "private": true,
   "name": "prismoid",
   "version": "1.0.0",
-  "license": "BSD-3-Clause",
+  "license": "Apache-2.0",
   "scripts": {
     "build:core": "yarn workspace @prismoid/core build",
     "build:grammars": "yarn workspace @prismoid/grammars build",
