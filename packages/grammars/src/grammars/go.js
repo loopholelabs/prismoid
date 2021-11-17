@@ -1,5 +1,5 @@
 // Local imports
-import { Grammar } from './structures/Grammar.js'
+import { Grammar } from '../structures/Grammar'
 import clike from './clike.js'
 
 

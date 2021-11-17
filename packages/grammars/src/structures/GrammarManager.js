@@ -1,5 +1,5 @@
 // Local imports
-import aliases from './aliases'
+import aliases from '../aliases.js'
 
 
 

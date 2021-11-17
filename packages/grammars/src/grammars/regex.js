@@ -1,5 +1,5 @@
 // Local imports
-import { Grammar } from './structures/Grammar'
+import { Grammar } from '../structures/Grammar'
 
 
 

@@ -1,39 +1,20 @@
-name: '@prismoid/core - Release'
+name: '@prismoid - Release Core'
 on:
   workflow_run:
-    workflows: ['@prismoid/core - Test']
+    workflows:
+      - '@prismoid/core - Test'
     branches:
       - 'main'
     types:
       - completed
 
-defaults:
-  run:
-    working-directory: packages/core
-
 jobs:
-  release:
-    name: Release
-    runs-on: ubuntu-20.04
+  release-core:
+    name: Release @prismoid/core
+    uses: loopholelabs/prismoid/.github/workflows/release-base.yml@main
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16
-
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Build
-        run: yarn build
-
-      - name: Release
-        run: yarn semantic-release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    with:
+      package-directory: packages/core
+    secrets:
+      github-token: ${{ secrets.GITHUB_TOKEN }}
+      npm-token: ${{ secrets.NPM_TOKEN }}
