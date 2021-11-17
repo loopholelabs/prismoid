@@ -1,4 +1,5 @@
-name: '@prismoid - Release Core'
+name: '@prismoid/core - Release'
+
 on:
   workflow_run:
     workflows:
@@ -9,9 +10,9 @@ on:
       - completed
 
 jobs:
-  release-core:
+  release:
     name: Release @prismoid/core
-    uses: loopholelabs/prismoid/.github/workflows/release-base.yml@main
+    uses: loopholelabs/prismoid/.github/workflows/release.yml@main
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     with:
       package-directory: packages/core

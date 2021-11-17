@@ -1,35 +1,11 @@
 name: '@prismoid/react - Test'
+
 on: [push]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: '16'
-
-    - name: Get yarn cache directory path
-      id: yarn-cache-dir-path
-      run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-
-    - uses: actions/cache@v2
-      id: yarn-cache
-      with:
-        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-yarn-
-
-    - name: Install dependencies
-      run: yarn install
-
-    - name: Build
-      run: yarn build:react
-
-    - name: Test
-      run: yarn test:react
+    name: Test @prismoid/react
+    uses: loopholelabs/prismoid/.github/workflows/test.yml@main
+    with:
+      build-command: yarn build:react
+      test-command: yarn test:react
