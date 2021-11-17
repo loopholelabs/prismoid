@@ -1,12 +1,15 @@
 .coverage
 .editorconfig
+.gitattributes
 .github
-.mocharc.js
+.mocharc.cjs
 .npmrc
+.nycrc
 .nyc_output
-.releaserc
+.releaserc.json
 .yarn
 .yarnrc.yml
+rollup.config.js
 test
 yarn.lock
 yarn-error.log
