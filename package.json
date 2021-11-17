@@ -1,7 +1,6 @@
 {
   "private": true,
   "name": "prismoid",
-  "version": "1.0.0",
   "license": "Apache-2.0",
   "scripts": {
     "build:core": "yarn workspace @prismoid/core build",
