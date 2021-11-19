@@ -1,5 +1,5 @@
 // Local imports
-import { Grammar } from '../structures/Grammar'
+import { Grammar } from '../structures/Grammar.mjs'
 
 
 
@@ -105,4 +105,3 @@ const regex = new Grammar('regex', {
 })
 
 export { regex }
-export default regex

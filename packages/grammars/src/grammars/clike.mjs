@@ -1,5 +1,5 @@
 // Local imports
-import { Grammar } from '../structures/Grammar.js'
+import { Grammar } from '../structures/Grammar.mjs'
 
 
 
@@ -38,4 +38,3 @@ const clike = new Grammar('clike', {
 })
 
 export { clike }
-export default clike

@@ -1,5 +1,12 @@
 // Local imports
-import aliases from '../aliases.js'
+import aliases from '../aliases.mjs'
+
+
+
+
+
+// Constants
+const DEFAULT_OPTIONS = { devModeEnabled: false }
 
 
 
@@ -8,6 +15,10 @@ import aliases from '../aliases.js'
 export class GrammarManager {
 	grammars = {}
 	loadingGrammars = {}
+
+	constructor(options = DEFAULT_OPTIONS) {
+		this.options = options
+	}
 
 	getLanguageName(languageName) {
 		const languageNameFromAlias = aliases[languageName]
@@ -19,10 +30,17 @@ export class GrammarManager {
 		return languageName
 	}
 
-	async loadGrammar(languageAlias) {
+	loadGrammar = async languageAlias => {
+		if (this.devModeEnabled) {
+			console.log(`Attempting to load '${languageAlias}' grammar...`)
+		}
+
 		const languageName = this.getLanguageName(languageAlias)
 
 		if (this.loadingGrammars[languageName]) {
+			if (this.devModeEnabled) {
+				console.log(`'${languageAlias}' grammar has already been loaded! Skipping.`)
+			}
 			return
 		}
 
@@ -34,12 +52,25 @@ export class GrammarManager {
 		// 	language: languageName,
 		// })
 
-		const { default: grammar } = await import(`./${languageName}`)
+		let grammar = undefined
+
+		try {
+			({ [languageName]: grammar } = await import(`../grammars/${languageName}`))
+		} catch (error) {
+			if (this.devModeEnabled) {
+				console.log(`Failed to load '${languageAlias}' grammar!`)
+			}
+			return
+		}
 
 		this.grammars[languageAlias] = grammar
 		this.loadingGrammars[languageAlias] = false
 		this.grammars[languageName] = grammar
 		this.loadingGrammars[languageName] = false
+
+		if (this.devModeEnabled) {
+			console.log(`Successfully loaded '${languageAlias}' grammar:`, grammar)
+		}
 
 		// this.emit('Grammar loaded', {
 		// 	grammar,
@@ -50,7 +81,7 @@ export class GrammarManager {
 		return grammar
 	}
 
-	async loadGrammars(languageAliases) {
+	loadGrammars = async languageAliases => {
 		let parsedLanguageAliases = languageAliases
 
 		if (!Array.isArray(parsedLanguageAliases)) {
@@ -64,5 +95,9 @@ export class GrammarManager {
 
 			return accumulator
 		}, {})
+	}
+
+	get devModeEnabled() {
+		return this.options.devModeEnabled
 	}
 }

@@ -1,17 +1,16 @@
 // Local imports
-import { Grammar } from '../structures/Grammar'
-import clike from './clike.js'
-import regex from './regex.js'
+import { clike } from './clike.mjs'
+import { Grammar } from '../structures/Grammar.mjs'
+import { regex } from './regex.mjs'
 
 
 
 
 
 const javascript = new Grammar('javascript', {
-	...clike,
 	'class-name': [
 		{
-			...clike['class-name'],
+			...clike.rules['class-name'],
 			pattern: /(\b(?:class|extends|implements|instanceof|interface|new)\s+)[\w.\\]+/,
 		},
 		{
@@ -60,7 +59,7 @@ const javascript = new Grammar('javascript', {
 		lookbehind: true
 	},
 	operator: /--|\+\+|\*\*=?|=>|&&=?|\|\|=?|[!=]==|<<=?|>>>?=?|[-+*/%&|^!=<>]=?|\.{3}|\?\?=?|\?\.?|[~:]/,
-})
+}, clike)
 
 javascript.insertBefore('keyword', {
 	'regex': {
@@ -164,4 +163,3 @@ javascript.insertBefore('operator', {
 // }
 
 export { javascript }
-export default javascript

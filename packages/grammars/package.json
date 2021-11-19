@@ -4,7 +4,7 @@
   "author": "Trezy <t@trezy.com> (https://trezy.com)",
   "license": "Apache-2.0",
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "module": "src/index.mjs",
   "repository": "git@github.com:loopholelabs/prismoid.git",
   "scripts": {
     "build": "rollup -c",
