@@ -8,16 +8,19 @@ import PropTypes from 'prop-types'
 
 
 // Local imports
+import { Toolbar } from './Toolbar.js'
 import { usePrismoid } from './usePrismoid.js'
 
 
 
 
 
-function mapTokens(token) {
+function mapTokens(token, index) {
 	if ((typeof token === 'object') && (token instanceof Token)) {
 		return (
-			<span className={`token ${token.type}`}>
+			<span
+				className={`token ${token.type}`}
+				key={index}>
 				{token.content}
 			</span>
 		)
@@ -28,22 +31,42 @@ function mapTokens(token) {
 
 export function PrismoidRenderer(props) {
 	const {
-		children,
 		className,
-		codeToolbar,
+		firstLineNumber,
 		language,
-		lineNumbers,
+		showLineNumbers,
+		toolbarItems,
+		trimFinalNewlines,
+		insertFinalNewline,
 	} = props
+
+	const children = useMemo(() => {
+		let processedChildren = props.children
+
+		if (trimFinalNewlines) {
+			processedChildren = processedChildren.replace(/\n+$/gu, '')
+		}
+
+		if (insertFinalNewline) {
+			processedChildren = processedChildren.replace(/\n*$/, '\n')
+		}
+
+		return processedChildren
+	}, [
+		insertFinalNewline,
+		props.children,
+		trimFinalNewlines,
+	])
 
 	const classes = useMemo(() => {
 		return {
-			pre: `${className} language-${language} ${lineNumbers ? 'line-numbers' : ''}`,
+			pre: `${className || ''} language-${language} ${showLineNumbers ? 'line-numbers' : ''}`,
 			code: `language-${language}`,
 		}
 	}, [
 		className,
 		language,
-		lineNumbers,
+		showLineNumbers,
 	])
 
 	const { tokenizeWithLanguage } = usePrismoid({
@@ -66,42 +89,83 @@ export function PrismoidRenderer(props) {
 	])
 
 	const codeBlock = useMemo(() => {
+		let lineNumbers = null
+
+		if (showLineNumbers) {
+			const lineCount = children.split('\n').length
+			const lineNumberRows = []
+
+			while (lineNumberRows.length < lineCount) {
+				lineNumberRows.push((
+					<span key={lineNumberRows.length} />
+				))
+			}
+
+			lineNumbers = (
+				<span
+					aria-hidden
+					className="line-numbers-rows">
+					{lineNumberRows}
+				</span>
+			)
+		}
+
 		const mainCodeBlock = (
-			<pre className={classes.pre}>
+			<pre
+				className={classes.pre}
+				style={{ counterReset: `linenumber ${firstLineNumber}` }}>
 				<code className={classes.code}>
 					{mappedTokens}
+
+					{lineNumbers}
 				</code>
 			</pre>
 		)
 
-		if (codeToolbar) {
+		if (toolbarItems.length) {
 			return (
 				<div className="code-toolbar">
-					{codeBlock}
-					<div className="toolbar" />
+					{mainCodeBlock}
+
+					<Toolbar
+						code={children}
+						language={language}
+						items={toolbarItems} />
 				</div>
 			)
 		}
 
 		return mainCodeBlock
 	}, [
+		children,
 		classes,
-		codeToolbar,
+		firstLineNumber,
 		mappedTokens,
+		showLineNumbers,
+		toolbarItems,
 	])
 
 	return codeBlock
 }
 
 PrismoidRenderer.propTypes = {
-	codeToolbar: false,
-	lineNumbers: false,
+	firstLineNumber: 1,
+	insertFinalNewline: false,
 	language: '',
+	showLineNumbers: false,
+	toolbarItems: [],
+	trimFinalNewlines: false,
 }
 
 PrismoidRenderer.propTypes = {
-	codeToolbar: PropTypes.bool,
-	language: PropTypes.string,
-	lineNumbers: PropTypes.bool,
 	children: PropTypes.string.isRequired,
+	firstLineNumber: PropTypes.oneOfType([
+		PropTypes.number,
+		PropTypes.string,
+	]),
+	insertFinalNewline: PropTypes.bool,
+	language: PropTypes.string,
+	showLineNumbers: PropTypes.bool,
+	toolbarItems: PropTypes.arrayOf(PropTypes.string),
+	trimFinalNewlines: PropTypes.bool,
 }

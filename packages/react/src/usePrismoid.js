@@ -2,6 +2,7 @@
 import {
 	useCallback,
 	useEffect,
+	useMemo,
 	useReducer,
 } from 'react'
 import { GrammarManager } from '@prismoid/grammars'
@@ -13,8 +14,8 @@ import { tokenize } from '@prismoid/core'
 
 // Constants
 const ACTION_TYPES = {
-	GRAMMAR_LOADED: 'Grammar loaded',
-	LOAD_GRAMMAR: 'Load grammar',
+	GRAMMARS_LOADED: 'Grammars loaded',
+	LOAD_GRAMMARS: 'Load grammars',
 }
 const INITIAL_STATE = {
 	grammars: {},
@@ -34,13 +35,15 @@ function reducer(state, action) {
 	} = action
 
   switch (type) {
-    case ACTION_TYPES.GRAMMAR_LOADED:
+    case ACTION_TYPES.GRAMMARS_LOADED:
 			newState.grammars = {
-				...state.grammars,
-				[payload.language]: payload.grammar,
+				...newState.grammars,
+				...payload.grammars,
 			}
 
-			delete newState.isLoadingGrammars[payload.language]
+			payload.languages.forEach(language => {
+				delete newState.isLoadingGrammars[language]
+			})
 
 			if (Object.keys(newState.isLoadingGrammars).length === 0) {
 				newState.isLoadingGrammars = false
@@ -50,12 +53,14 @@ function reducer(state, action) {
 
 			return newState
 
-    case ACTION_TYPES.LOAD_GRAMMAR:
+    case ACTION_TYPES.LOAD_GRAMMARS:
 			if (!newState.isLoadingGrammars) {
 				newState.isLoadingGrammars = {}
 			}
 
-			newState.isLoadingGrammars[payload.language] = true
+			payload.languages.forEach(language => {
+				newState.isLoadingGrammars[language] = true
+			})
 
       return newState
 
@@ -70,26 +75,42 @@ export function usePrismoid(options) {
 
 	const [state, dispatch] = useReducer(reducer, INITIAL_STATE)
 
-	const loadGrammar = useCallback(async language => {
+	// const loadGrammar = useCallback(async language => {
+	// 	// dispatch({
+	// 	// 	type: ACTION_TYPES.LOAD_GRAMMAR,
+	// 	// 	payload: { language },
+	// 	// })
+
+	// 	const grammar = await grammarManager.loadGrammar(language)
+
+	// 	// dispatch({
+	// 	// 	type: ACTION_TYPES.GRAMMAR_LOADED,
+	// 	// 	payload: {
+	// 	// 		grammar,
+	// 	// 		language,
+	// 	// 	},
+	// 	// })
+	// }, [dispatch])
+
+	const loadGrammars = useCallback(async languages => {
 		dispatch({
-			type: ACTION_TYPES.LOAD_GRAMMAR,
-			payload: { language },
+			type: ACTION_TYPES.LOAD_GRAMMARS,
+			payload: { languages },
 		})
 
-		const grammar = await grammarManager.loadGrammar(language)
+		const grammars = await grammarManager.loadGrammars(languages)
 
 		dispatch({
-			type: ACTION_TYPES.GRAMMAR_LOADED,
+			type: ACTION_TYPES.GRAMMARS_LOADED,
 			payload: {
-				grammar,
-				language,
+				grammars,
+				languages,
 			},
 		})
-	}, [dispatch])
-
-	const loadGrammars = useCallback(async languageAliases => {
-		await grammarManager.loadGrammars(languageAliases)
-	}, [grammarManager])
+	}, [
+		dispatch,
+		grammarManager,
+	])
 
 	const tokenizeWithLanguage = useCallback((string, languageAlias) => {
 		const languageName = grammarManager.getLanguageName(languageAlias)
@@ -134,7 +155,6 @@ export function usePrismoid(options) {
 
 	return {
 		...state,
-		loadGrammar,
 		loadGrammars,
 		tokenize,
 		tokenizeWithLanguage,
