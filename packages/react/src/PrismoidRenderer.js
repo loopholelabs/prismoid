@@ -1,6 +1,4 @@
 // Module imports
-import { Token } from '@prismoid/core'
-import { useMemo } from 'react'
 import PropTypes from 'prop-types'
 
 
@@ -9,143 +7,49 @@ import PropTypes from 'prop-types'
 
 // Local imports
 import { Toolbar } from './Toolbar.js'
-import { usePrismoid } from './usePrismoid.js'
+import { useMemoizedChildren } from './helpers/useMemoizedChildren.js'
+import { useMemoizedClassNames } from './helpers/useMemoizedClassNames.js'
+import { useMemoizedTokens } from './helpers/useMemoizedTokens.js'
 
 
 
 
-
-function mapTokens(token, index) {
-	if ((typeof token === 'object') && (token instanceof Token)) {
-		return (
-			<span
-				className={`token ${token.type}`}
-				key={index}>
-				{token.content}
-			</span>
-		)
-	}
-
-	return token
-}
 
 export function PrismoidRenderer(props) {
 	const {
-		className,
 		firstLineNumber,
 		language,
-		showLineNumbers,
 		toolbarItems,
-		trimFinalNewlines,
-		insertFinalNewline,
 	} = props
 
-	const children = useMemo(() => {
-		let processedChildren = props.children
+	const children = useMemoizedChildren(props)
+	const classNames = useMemoizedClassNames(props)
+	const tokens = useMemoizedTokens(props)
 
-		if (trimFinalNewlines) {
-			processedChildren = processedChildren.replace(/\n+$/gu, '')
-		}
+	const preformattedCodeBlock = (
+		<pre
+			className={classNames.pre}
+			style={{ counterReset: `linenumber ${firstLineNumber}` }}>
+			<code className={classNames.code}>
+				{tokens}
+			</code>
+		</pre>
+	)
 
-		if (insertFinalNewline) {
-			processedChildren = processedChildren.replace(/\n*$/, '\n')
-		}
+	if (toolbarItems.length) {
+		return (
+			<div className="code-toolbar">
+				{preformattedCodeBlock}
 
-		return processedChildren
-	}, [
-		insertFinalNewline,
-		props.children,
-		trimFinalNewlines,
-	])
-
-	const classes = useMemo(() => {
-		return {
-			pre: `${className || ''} language-${language} ${showLineNumbers ? 'line-numbers' : ''}`,
-			code: `language-${language}`,
-		}
-	}, [
-		className,
-		language,
-		showLineNumbers,
-	])
-
-	const { tokenizeWithLanguage } = usePrismoid({
-		languages: [language],
-	})
-
-	const tokens = useMemo(() => {
-		return tokenizeWithLanguage(children, language)
-	}, [
-		children,
-		language,
-		tokenizeWithLanguage,
-	])
-
-	const mappedTokens = useMemo(() => {
-		return tokens.map(mapTokens)
-	}, [
-		mapTokens,
-		tokens,
-	])
-
-	const codeBlock = useMemo(() => {
-		let lineNumbers = null
-
-		if (showLineNumbers) {
-			const lineCount = children.split('\n').length
-			const lineNumberRows = []
-
-			while (lineNumberRows.length < lineCount) {
-				lineNumberRows.push((
-					<span key={lineNumberRows.length} />
-				))
-			}
-
-			lineNumbers = (
-				<span
-					aria-hidden
-					className="line-numbers-rows">
-					{lineNumberRows}
-				</span>
-			)
-		}
-
-		const mainCodeBlock = (
-			<pre
-				className={classes.pre}
-				style={{ counterReset: `linenumber ${firstLineNumber}` }}>
-				<code className={classes.code}>
-					{mappedTokens}
-
-					{lineNumbers}
-				</code>
-			</pre>
+				<Toolbar
+					code={children}
+					language={language}
+					items={toolbarItems} />
+			</div>
 		)
+	}
 
-		if (toolbarItems.length) {
-			return (
-				<div className="code-toolbar">
-					{mainCodeBlock}
-
-					<Toolbar
-						code={children}
-						language={language}
-						items={toolbarItems} />
-				</div>
-			)
-		}
-
-		return mainCodeBlock
-	}, [
-		children,
-		classes,
-		firstLineNumber,
-		mappedTokens,
-		showLineNumbers,
-		toolbarItems,
-	])
-
-	return codeBlock
+	return preformattedCodeBlock
 }
 
 PrismoidRenderer.propTypes = {
@@ -155,6 +59,7 @@ PrismoidRenderer.propTypes = {
 	showLineNumbers: false,
 	toolbarItems: [],
 	trimFinalNewlines: false,
+	wrapLines: false,
 }
 
 PrismoidRenderer.propTypes = {
@@ -168,4 +73,5 @@ PrismoidRenderer.propTypes = {
 	showLineNumbers: PropTypes.bool,
 	toolbarItems: PropTypes.arrayOf(PropTypes.string),
 	trimFinalNewlines: PropTypes.bool,
+	wrapLines: PropTypes.bool,
 }
