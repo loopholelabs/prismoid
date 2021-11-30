@@ -85,7 +85,7 @@ CopyButton.propTypes = {
 	className: PropTypes.string,
 	content: PropTypes.node.isRequired,
 	options: PropTypes.shape({
-		label: PropTypes.string,
+		label: PropTypes.node,
 		onCopyFail: PropTypes.func,
 		onCopySuccess: PropTypes.func,
 	}),
