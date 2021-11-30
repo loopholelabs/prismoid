@@ -30,7 +30,9 @@ export function PrismoidRenderer(props) {
 	const preformattedCodeBlock = (
 		<pre
 			className={classNames.pre}
-			style={{ counterReset: `linenumber ${firstLineNumber}` }}>
+			style={{
+				counterReset: firstLineNumber ? `linenumber ${firstLineNumber}` : null,
+			}}>
 			<code className={classNames.code}>
 				{tokens}
 			</code>
