@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 
 // Local imports
 import { Toolbar } from './Toolbar.js'
+import { toolbarItemsShape } from './shapes/toolbarItems.js'
 import { useMemoizedChildren } from './helpers/useMemoizedChildren.js'
 import { useMemoizedClassNames } from './helpers/useMemoizedClassNames.js'
 import { useMemoizedTokens } from './helpers/useMemoizedTokens.js'
@@ -71,7 +72,7 @@ PrismoidRenderer.propTypes = {
 	insertFinalNewline: PropTypes.bool,
 	language: PropTypes.string,
 	showLineNumbers: PropTypes.bool,
-	toolbarItems: PropTypes.arrayOf(PropTypes.string),
+	toolbarItems: toolbarItemsShape,
 	trimFinalNewlines: PropTypes.bool,
 	wrapLines: PropTypes.bool,
 }

@@ -11,6 +11,7 @@ import { CopyButton } from './toolbar-items/CopyButton.js'
 import { LineCount } from './toolbar-items/LineCount.js'
 import { ShowLanguage } from './toolbar-items/ShowLanguage.js'
 import { Spacer } from './toolbar-items/Spacer.js'
+import { toolbarItemsShape } from './shapes/toolbarItems.js'
 
 
 
@@ -87,22 +88,5 @@ export function Toolbar(props) {
 Toolbar.propTypes = {
 	code: PropTypes.string.isRequired,
 	language: PropTypes.string.isRequired,
-	items: PropTypes.arrayOf(PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.arrayOf(function (propValue, index, componentName, location, propFullName) {
-			switch (index) {
-				case '0':
-					if (typeof propValue !== 'string') {
-						return new Error(`Invalid prop \`${propFullName}\` supplied to \`${componentName}\`. First argument must be a string. Validation failed.`)
-					}
-					break
-
-				case '1':
-					if (propValue && ((typeof propValue !== 'object') || Array.isArray(propValue))) {
-						return new Error(`Invalid prop \`${propFullName}\` supplied to \`${componentName}\`. Second argument must be an options object. Validation failed.`)
-					}
-					break
-			}
-		}),
-	])).isRequired,
+	items: toolbarItemsShape.isRequired,
 }
