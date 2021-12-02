@@ -14,7 +14,9 @@ export function LineRenderer(props) {
 	return (
 		<>
 			<span className="line-item">
-				{children}
+				<span className="line-content">
+					{children}
+				</span>
 			</span>
 			{includeNewLine && '\n'}
 		</>
