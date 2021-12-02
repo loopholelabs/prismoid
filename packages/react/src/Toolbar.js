@@ -25,58 +25,60 @@ export function Toolbar(props) {
 	} = props
 
 	const toolbarComponents = useMemo(() => {
-		const components = []
-
-		items.forEach((item, itemIndex) => {
+		return items.map((item, itemIndex) => {
+			let component = null
 			let itemType = item
 			let itemOptions = {}
-			let component = null
 
 			if (Array.isArray(item)) {
 				itemType = item[0]
 				itemOptions = item[1] || {}
 			}
 
-			switch(itemType.toLowerCase()) {
-				case 'language':
-					component = (
-						<ShowLanguage
-							key="language"
-							language={language}
-							options={itemOptions} />
-					)
-					break
+			if (typeof itemType === 'string') {
+				switch(itemType.toLowerCase()) {
+					case 'language':
+						return (
+							<ShowLanguage
+								key="language"
+								language={language}
+								options={itemOptions} />
+						)
 
-				case 'line-count':
-					component = (
-						<LineCount
-							key="line-count"
-							options={itemOptions} />
-					)
-					break
+					case 'line-count':
+						return (
+							<LineCount
+								key="line-count"
+								options={itemOptions} />
+						)
 
-				case 'spacer':
-					component = (
-						<Spacer key={itemIndex} />
-					)
-					break
+					case 'spacer':
+						return (
+							<Spacer key={itemIndex} />
+						)
 
-				case 'copy-button':
-					component = (
-						<CopyButton
-							key="copy-button"
-							className="toolbar-item"
-							options={itemOptions}
-							content={code} />
-					)
-					break
+					case 'copy-button':
+						return (
+							<CopyButton
+								key="copy-button"
+								className="toolbar-item"
+								options={itemOptions}
+								content={code} />
+						)
+
+					default:
+						console.warn(`${itemType} is not a recognized toolbar item`)
+						return itemType
+				}
 			}
 
-			components.push(component)
+			return component
 		})
-
-		return components
-	}, [items])
+	}, [
+		code,
+		items,
+		language,
+	])
 
 	return (
 		<div className="toolbar">

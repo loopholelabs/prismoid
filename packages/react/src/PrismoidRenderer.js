@@ -20,7 +20,6 @@ import { useMemoizedTokens } from './helpers/useMemoizedTokens.js'
 
 export function PrismoidRenderer(props) {
 	const {
-		firstLineNumber,
 		language,
 		toolbarItems,
 	} = props
