@@ -1,4 +1,5 @@
 // Module imports
+import { useMemo } from 'react'
 import PropTypes from 'prop-types'
 
 
@@ -10,6 +11,7 @@ import { Toolbar } from './Toolbar.js'
 import { toolbarItemsShape } from './shapes/toolbarItems.js'
 import { useMemoizedChildren } from './helpers/useMemoizedChildren.js'
 import { useMemoizedClassNames } from './helpers/useMemoizedClassNames.js'
+import { useMemoizedStyle } from './helpers/useMemoizedStyle.js'
 import { useMemoizedTokens } from './helpers/useMemoizedTokens.js'
 
 
@@ -27,12 +29,12 @@ export function PrismoidRenderer(props) {
 	const classNames = useMemoizedClassNames(props)
 	const tokens = useMemoizedTokens(props)
 
+	const style = useMemoizedStyle(props)
+
 	const preformattedCodeBlock = (
 		<pre
 			className={classNames.pre}
-			style={{
-				counterReset: firstLineNumber ? `linenumber ${firstLineNumber}` : null,
-			}}>
+			style={style}>
 			<code className={classNames.code}>
 				{tokens}
 			</code>
