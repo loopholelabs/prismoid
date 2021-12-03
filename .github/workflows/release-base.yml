@@ -1,0 +1,55 @@
+name: '@prismoid - Release Base'
+
+on:
+  workflow_call:
+    inputs:
+      package-directory:
+        required: true
+        type: string
+    secrets:
+      github-token:
+        required: true
+      npm-token:
+        required: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.package-directory }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build
+        run: yarn build
+
+      - name: Release
+        run: yarn semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.github-token }}
+          NPM_TOKEN: ${{ secrets.npm-token }}
+
+      - name: Update the changelog
+        uses: github-actions-x/commit@v2.8
+        with:
+          github-token: ${{ secrets.github-token }}
+          push-branch: 'main'
+          commit-message: |
+            docs(*): update the changelog
+
+            [skip ci]
+          force-add: 'true'
+          files: ${{ inputs.package-directory }}/CHANGELOG.md
+          name: semantic-release
+          email: semantic-release@loopholelabs.io
