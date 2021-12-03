@@ -1,3 +1,10 @@
+# [@prismoid/grammars-v2.1.0](https://github.com/loopholelabs/prismoid/compare/@prismoid/grammars-v2.0.2...@prismoid/grammars-v2.1.0) (2021-12-03)
+
+
+### Features
+
+* **@prismoid/grammars:** add bash grammar ([30309a1](https://github.com/loopholelabs/prismoid/commit/30309a19502228e868abef40b89be1cf72f5bb01))
+
 # [@prismoid/grammars-v2.0.2](https://github.com/loopholelabs/prismoid/compare/@prismoid/grammars-v2.0.1...@prismoid/grammars-v2.0.2) (2021-11-19)
 
 
