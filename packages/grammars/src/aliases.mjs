@@ -61,6 +61,7 @@ export default {
 	rq: 'sparql',
 	rss: 'markup',
 	'sh-session': 'shell-session',
+	sh: 'bash',
 	shell: 'bash',
 	shellsession: 'shell-session',
 	shortcode: 'bbcode',
