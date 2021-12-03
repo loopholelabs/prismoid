@@ -1,5 +1,9 @@
 // Module imports
-import { useMemo } from 'react'
+import {
+	Fragment,
+	isValidElement,
+	useMemo,
+} from 'react'
 import PropTypes from 'prop-types'
 
 
@@ -39,7 +43,7 @@ export function Toolbar(props) {
 					case 'language':
 						return (
 							<ShowLanguage
-								key="language"
+								key={itemIndex}
 								language={language}
 								options={itemOptions} />
 						)
@@ -47,7 +51,7 @@ export function Toolbar(props) {
 					case 'line-count':
 						return (
 							<LineCount
-								key="line-count"
+								key={itemIndex}
 								options={itemOptions} />
 						)
 
@@ -59,7 +63,7 @@ export function Toolbar(props) {
 					case 'copy-button':
 						return (
 							<CopyButton
-								key="copy-button"
+								key={itemIndex}
 								className="toolbar-item"
 								options={itemOptions}
 								content={code} />
@@ -69,6 +73,14 @@ export function Toolbar(props) {
 						console.warn(`${itemType} is not a recognized toolbar item`)
 						return itemType
 				}
+			}
+
+			if (isValidElement(item)) {
+				return (
+					<Fragment key={itemIndex}>
+						{item}
+					</Fragment>
+				)
 			}
 
 			return item
