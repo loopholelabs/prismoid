@@ -12,7 +12,7 @@ on:
 jobs:
   release-core:
     name: Release @prismoid/core
-    uses: loopholelabs/prismoid/.github/workflows/release.yml@main
+    uses: loopholelabs/prismoid/.github/workflows/release-base.yml@main
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     concurrency:
       group: ${{ github.head_ref }}
@@ -24,7 +24,7 @@ jobs:
 
   release-grammars:
     name: Release @prismoid/grammars
-    uses: loopholelabs/prismoid/.github/workflows/release.yml@main
+    uses: loopholelabs/prismoid/.github/workflows/release-base.yml@main
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     concurrency:
       group: ${{ github.head_ref }}
@@ -36,7 +36,7 @@ jobs:
 
   release-react:
     name: Release @prismoid/react
-    uses: loopholelabs/prismoid/.github/workflows/release.yml@main
+    uses: loopholelabs/prismoid/.github/workflows/release-base.yml@main
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     concurrency:
       group: ${{ github.head_ref }}
