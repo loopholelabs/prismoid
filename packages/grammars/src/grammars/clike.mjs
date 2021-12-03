@@ -1,3 +1,12 @@
+/**
+ * Copied from Prism.js
+ * https://github.com/PrismJS/prism/blob/e2630d890e9ced30a79cdf9ef272601ceeaedccf/components/prism-clike.js
+ */
+
+
+
+
+
 // Local imports
 import { Grammar } from '../structures/Grammar.mjs'
 

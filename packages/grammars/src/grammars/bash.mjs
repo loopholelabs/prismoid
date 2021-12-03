@@ -1,3 +1,12 @@
+/**
+ * Copied from Prism.js
+ * https://github.com/PrismJS/prism/blob/8c5ed2514bc4cd3d77d48ff4072c9bdbd617afde/components/prism-bash.js
+ */
+
+
+
+
+
 // Local imports
 import { Grammar } from '../structures/Grammar.mjs'
 

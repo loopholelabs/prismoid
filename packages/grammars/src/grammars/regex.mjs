@@ -1,3 +1,12 @@
+/**
+ * Copied from Prism.js
+ * https://github.com/PrismJS/prism/blob/4dde2e20e68b8d91a1cfb01020954e473522696c/components/prism-regex.js
+ */
+
+
+
+
+
 // Local imports
 import { Grammar } from '../structures/Grammar.mjs'
 
