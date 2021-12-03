@@ -39,3 +39,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.github-token }}
           NPM_TOKEN: ${{ secrets.npm-token }}
+
+      - name: Update the changelog
+        uses: github-actions-x/commit@v2.8
+        with:
+          github-token: ${{ secrets.github-token }}
+          push-branch: 'main'
+          commit-message: |
+            docs(*): update the changelog
+
+            [skip ci]
+          force-add: 'true'
+          files: ${{ inputs.package-directory }}/CHANGELOG.md
+          name: semantic-release
+          email: semantic-release@loopholelabs.io
