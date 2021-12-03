@@ -1,3 +1,4 @@
+import { bash } from './grammars/bash.mjs'
 import { clike } from './grammars/clike.mjs'
 import { go } from './grammars/go.mjs'
 import { Grammar } from './structures/Grammar.mjs'
@@ -8,6 +9,7 @@ import aliases from './aliases.mjs'
 
 export {
 	// Grammars
+	bash,
 	clike,
 	go,
 	javascript,
