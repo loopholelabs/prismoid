@@ -12,36 +12,132 @@ on:
 jobs:
   release-core:
     name: Release @prismoid/core
-    uses: loopholelabs/prismoid/.github/workflows/release-base.yml@main
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/core
     concurrency:
       group: ${{ github.head_ref }}
-    with:
-      package-directory: packages/core
-    secrets:
-      github-token: ${{ secrets.GITHUB_TOKEN }}
-      npm-token: ${{ secrets.NPM_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build
+        run: yarn build
+
+      - name: Release
+        run: yarn semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Update the changelog
+        uses: github-actions-x/commit@v2.8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          push-branch: 'main'
+          commit-message: |
+            docs(*): update the changelog
+
+            [skip ci]
+          force-add: 'true'
+          files: ${{ inputs.package-directory }}/CHANGELOG.md
+          name: semantic-release
+          email: semantic-release@loopholelabs.io
 
   release-grammars:
     name: Release @prismoid/grammars
-    uses: loopholelabs/prismoid/.github/workflows/release-base.yml@main
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/grammars
     concurrency:
       group: ${{ github.head_ref }}
-    with:
-      package-directory: packages/grammars
-    secrets:
-      github-token: ${{ secrets.GITHUB_TOKEN }}
-      npm-token: ${{ secrets.NPM_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build
+        run: yarn build
+
+      - name: Release
+        run: yarn semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Update the changelog
+        uses: github-actions-x/commit@v2.8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          push-branch: 'main'
+          commit-message: |
+            docs(*): update the changelog
+
+            [skip ci]
+          force-add: 'true'
+          files: ${{ inputs.package-directory }}/CHANGELOG.md
+          name: semantic-release
+          email: semantic-release@loopholelabs.io
 
   release-react:
     name: Release @prismoid/react
-    uses: loopholelabs/prismoid/.github/workflows/release-base.yml@main
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/react
     concurrency:
       group: ${{ github.head_ref }}
-    with:
-      package-directory: packages/react
-    secrets:
-      github-token: ${{ secrets.GITHUB_TOKEN }}
-      npm-token: ${{ secrets.NPM_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build
+        run: yarn build
+
+      - name: Release
+        run: yarn semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Update the changelog
+        uses: github-actions-x/commit@v2.8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          push-branch: 'main'
+          commit-message: |
+            docs(*): update the changelog
+
+            [skip ci]
+          force-add: 'true'
+          files: ${{ inputs.package-directory }}/CHANGELOG.md
+          name: semantic-release
+          email: semantic-release@loopholelabs.io
