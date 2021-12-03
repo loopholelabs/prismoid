@@ -26,7 +26,6 @@ export function Toolbar(props) {
 
 	const toolbarComponents = useMemo(() => {
 		return items.map((item, itemIndex) => {
-			let component = null
 			let itemType = item
 			let itemOptions = {}
 
@@ -72,7 +71,7 @@ export function Toolbar(props) {
 				}
 			}
 
-			return component
+			return item
 		})
 	}, [
 		code,
