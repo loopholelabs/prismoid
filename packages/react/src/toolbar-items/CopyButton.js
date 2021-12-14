@@ -1,6 +1,9 @@
 // Module imports
+import {
+	useCallback,
+	useMemo,
+} from 'react'
 import PropTypes from 'prop-types'
-import { useCallback } from 'react'
 
 
 
@@ -8,10 +11,26 @@ import { useCallback } from 'react'
 
 export function CopyButton(props) {
 	const {
-		className,
 		content,
 		options,
 	} = props
+
+	const className = useMemo(() => {
+		const possibleClassNames = [
+			props.className,
+			options.className,
+		]
+
+		return possibleClassNames.reduce((accumulator, value) => {
+			if (value) {
+				accumulator.push(value)
+			}
+			return accumulator
+		}, []).join(' ')
+	}, [
+		options.className,
+		props.className,
+	])
 
 	const fallbackCopyTextToClipboard = useCallback(() => {
 		const textArea = document.createElement('textarea')
