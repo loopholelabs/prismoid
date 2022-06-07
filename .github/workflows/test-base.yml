@@ -1,5 +1,3 @@
-name: '@prismoid - Test Base'
-
 on:
   workflow_call:
     inputs:

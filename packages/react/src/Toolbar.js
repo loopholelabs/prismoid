@@ -98,8 +98,12 @@ export function Toolbar(props) {
 	)
 }
 
+Toolbar.defaultProps = {
+	language: '',
+}
+
 Toolbar.propTypes = {
 	code: PropTypes.string.isRequired,
-	language: PropTypes.string.isRequired,
+	language: PropTypes.string,
 	items: toolbarItemsShape.isRequired,
 }
