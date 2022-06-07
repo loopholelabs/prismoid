@@ -281,6 +281,10 @@ export function ShowLanguage(props) {
 		props.options.language,
 	])
 
+	if (!language) {
+		return null
+	}
+
 	return (
 		<ToolbarItem>
 			{language}
