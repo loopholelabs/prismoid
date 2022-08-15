@@ -6,6 +6,8 @@ on:
       - '@prismoid - Test'
     branches:
       - 'main'
+      - 'beta'
+      - 'alpha'
     types:
       - completed
 
@@ -25,7 +27,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 16
+          node-version: 18
 
       - name: Install dependencies
         run: yarn install
@@ -68,7 +70,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 16
+          node-version: 18
 
       - name: Install dependencies
         run: yarn install
@@ -111,7 +113,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 16
+          node-version: 18
 
       - name: Install dependencies
         run: yarn install
