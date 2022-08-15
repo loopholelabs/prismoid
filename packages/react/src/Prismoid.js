@@ -20,8 +20,14 @@ import { Toolbar } from './Toolbar.js'
 export function Prismoid(props) {
 	const {
 		children,
+		className,
+		firstLineNumber,
+		insertFinalNewline,
 		language,
+		showLineNumbers,
 		source,
+		trimFinalNewlines,
+		wrapLines,
 	} = props
 
 	const hasToolbar = useMemo(() => {
@@ -32,12 +38,24 @@ export function Prismoid(props) {
 
 	const providerValue = useMemo(() => {
 		return {
+			className,
+			firstLineNumber,
+			insertFinalNewline,
 			language,
+			showLineNumbers,
 			source,
+			trimFinalNewlines,
+			wrapLines,
 		}
 	}, [
+		className,
+		firstLineNumber,
+		insertFinalNewline,
 		language,
+		showLineNumbers,
 		source,
+		trimFinalNewlines,
+		wrapLines,
 	])
 
 	return (
@@ -55,8 +73,29 @@ export function Prismoid(props) {
 	)
 }
 
+Prismoid.defaultProps = {
+	children: null,
+	className: '',
+	firstLineNumber: 1,
+	insertFinalNewline: false,
+	language: '',
+	showLineNumbers: false,
+	source: '',
+	trimFinalNewlines: false,
+	wrapLines: false,
+}
+
 Prismoid.propTypes = {
 	children: PropTypes.node,
+	className: PropTypes.string,
+	firstLineNumber: PropTypes.oneOfType([
+		PropTypes.number,
+		PropTypes.string,
+	]),
+	insertFinalNewline: PropTypes.bool,
 	language: PropTypes.string,
+	showLineNumbers: PropTypes.bool,
 	source: PropTypes.string,
+	trimFinalNewlines: PropTypes.bool,
+	wrapLines: PropTypes.bool,
 }
