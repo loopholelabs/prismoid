@@ -12,7 +12,6 @@ import PropTypes from 'prop-types'
 
 // Local imports
 import { LineCount } from './toolbar-items/LineCount.js'
-import { ShowLanguage } from './toolbar-items/ShowLanguage.js'
 import { Spacer } from './toolbar-items/Spacer.js'
 import { toolbarItemsShape } from './shapes/toolbarItems.js'
 
@@ -39,14 +38,6 @@ export function Toolbar(props) {
 
 			if (typeof itemType === 'string') {
 				switch(itemType.toLowerCase()) {
-					case 'language':
-						return (
-							<ShowLanguage
-								key={itemIndex}
-								language={language}
-								options={itemOptions} />
-						)
-
 					case 'line-count':
 						return (
 							<LineCount
