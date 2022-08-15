@@ -1,20 +1,4 @@
-// Module imports
-import { useMemo } from 'react'
-import PropTypes from 'prop-types'
-
-
-
-
-
-// Local imports
-import { ToolbarItem } from './ToolbarItem.js'
-
-
-
-
-
-// Constants
-const LANGUAGE_NAMES = {
+export const LANGUAGE_NAMES = {
 	none: 'Plain text',
 	plain: 'Plain text',
 	plaintext: 'Plain text',
@@ -265,41 +249,4 @@ const LANGUAGE_NAMES = {
 	yaml: 'YAML',
 	yml: 'YAML',
 	yang: 'YANG'
-}
-
-
-
-
-
-export function ShowLanguage(props) {
-	const language = useMemo(() => {
-		return props.options.language
-			|| LANGUAGE_NAMES[props.language]
-			|| props.language
-	}, [
-		props.language,
-		props.options.language,
-	])
-
-	if (!language) {
-		return null
-	}
-
-	return (
-		<ToolbarItem>
-			{language}
-		</ToolbarItem>
-	)
-}
-
-ShowLanguage.defaultProps = {
-	language: '',
-	options: {},
-}
-
-ShowLanguage.propTypes = {
-	language: PropTypes.string,
-	options: PropTypes.shape({
-		language: PropTypes.string,
-	}),
 }

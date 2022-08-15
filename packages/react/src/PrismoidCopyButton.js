@@ -1,40 +1,30 @@
 // Module imports
-import {
-	useCallback,
-	useMemo,
-} from 'react'
 import PropTypes from 'prop-types'
+import { useCallback } from 'react'
 
 
 
 
 
-export function CopyButton(props) {
+// Local imports
+import { usePrismoidContext } from './helpers/usePrismoidContext.js'
+
+
+
+
+
+export function PrismoidCopyButton(props) {
+	const { source } = usePrismoidContext()
 	const {
-		content,
-		options,
+		className,
+		onCopyFail,
+		onCopySuccess,
+		label,
 	} = props
-
-	const className = useMemo(() => {
-		const possibleClassNames = [
-			props.className,
-			options.className,
-		]
-
-		return possibleClassNames.reduce((accumulator, value) => {
-			if (value) {
-				accumulator.push(value)
-			}
-			return accumulator
-		}, []).join(' ')
-	}, [
-		options.className,
-		props.className,
-	])
 
 	const fallbackCopyTextToClipboard = useCallback(() => {
 		const textArea = document.createElement('textarea')
-		textArea.value = content
+		textArea.value = source
 
 		// Avoid scrolling to bottom
 		textArea.style.top = '0'
@@ -49,29 +39,29 @@ export function CopyButton(props) {
 			const isSuccessful = document.execCommand('copy')
 			setTimeout(() => {
 				if (isSuccessful) {
-					options.onCopySuccess?.()
+					onCopySuccess()
 				} else {
-					options.onCopyFail?.()
+					onCopyFail()
 				}
 			}, 1)
 		} catch (error) {
 			setTimeout(() => {
-				options.onCopyFail?.(error)
+				onCopyFail(error)
 			}, 1)
 		}
 
 		document.body.removeChild(textArea)
 	}, [
-		content,
-		options.onCopyFail,
-		options.onCopySuccess,
+		onCopyFail,
+		onCopySuccess,
+		source,
 	])
 
 	const copyTextToClipboard = useCallback(async () => {
 		if (navigator.clipboard) {
 			try {
-				await navigator.clipboard.writeText(content)
-				options.onCopySuccess()
+				await navigator.clipboard.writeText(source)
+				onCopySuccess()
 			} catch(error) {
 				fallbackCopyTextToClipboard()
 			}
@@ -79,33 +69,34 @@ export function CopyButton(props) {
 			fallbackCopyTextToClipboard()
 		}
 	}, [
-		content,
+		source,
 		fallbackCopyTextToClipboard,
-		options.onCopySuccess,
+		onCopySuccess,
 	])
 
 	return (
 		<button
 			className={className}
 			onClick={copyTextToClipboard}
-			type="button">
-			{options.label || 'Copy'}
+			type={'button'}>
+			{label}
 		</button>
 	)
 }
 
-CopyButton.defaultProps = {
+PrismoidCopyButton.defaultProps = {
 	className: '',
 	content: null,
+	label: 'Copy',
+	onCopyFail: () => {},
+	onCopySuccess: () => {},
 	options: {},
 }
 
-CopyButton.propTypes = {
+PrismoidCopyButton.propTypes = {
 	className: PropTypes.string,
 	content: PropTypes.node.isRequired,
-	options: PropTypes.shape({
-		label: PropTypes.node,
-		onCopyFail: PropTypes.func,
-		onCopySuccess: PropTypes.func,
-	}),
+	label: PropTypes.node,
+	onCopyFail: PropTypes.func,
+	onCopySuccess: PropTypes.func,
 }

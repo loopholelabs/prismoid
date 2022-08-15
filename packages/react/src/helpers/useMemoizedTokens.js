@@ -16,7 +16,7 @@ import { usePrismoid } from '../usePrismoid.js'
 
 export function useMemoizedTokens(props) {
 	const {
-		children,
+		source,
 		language,
 		wrapLines,
 	} = props
@@ -26,10 +26,10 @@ export function useMemoizedTokens(props) {
 	})
 
 	const tokens = useMemo(() => {
-		return tokenizeWithLanguage(children, language)
+		return tokenizeWithLanguage(source, language)
 	}, [
-		children,
 		language,
+		source,
 		tokenizeWithLanguage,
 	])
 
