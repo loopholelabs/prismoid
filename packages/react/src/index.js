@@ -1,4 +1,7 @@
 export * from './Prismoid.js'
 export * from './PrismoidCopyButton.js'
+export * from './PrismoidLanguage.js'
+export * from './PrismoidLineCount.js'
 export * from './PrismoidRenderer.js'
+export * from './PrismoidToolbar.js'
 export * from './usePrismoid.js'
