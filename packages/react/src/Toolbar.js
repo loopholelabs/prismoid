@@ -11,7 +11,6 @@ import PropTypes from 'prop-types'
 
 
 // Local imports
-import { CopyButton } from './toolbar-items/CopyButton.js'
 import { LineCount } from './toolbar-items/LineCount.js'
 import { ShowLanguage } from './toolbar-items/ShowLanguage.js'
 import { Spacer } from './toolbar-items/Spacer.js'
@@ -60,15 +59,6 @@ export function Toolbar(props) {
 							<Spacer key={itemIndex} />
 						)
 
-					case 'copy-button':
-						return (
-							<CopyButton
-								key={itemIndex}
-								className="toolbar-item"
-								options={itemOptions}
-								content={code} />
-						)
-
 					default:
 						console.warn(`${itemType} is not a recognized toolbar item`)
 						return itemType
@@ -92,7 +82,7 @@ export function Toolbar(props) {
 	])
 
 	return (
-		<div className="toolbar">
+		<div className={'toolbar'}>
 			{toolbarComponents}
 		</div>
 	)

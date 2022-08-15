@@ -61,7 +61,7 @@ export function Prismoid(props) {
 	return (
 		<PrismoidContext.Provider value={providerValue}>
 			{hasToolbar && (
-				<div className="code-toolbar">
+				<div className={'code-toolbar'}>
 					{children}
 				</div>
 			)}
