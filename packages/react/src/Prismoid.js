@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 
 // Local imports
 import { PrismoidContext } from './PrismoidContext.js'
-import { Toolbar } from './Toolbar.js'
+import { PrismoidToolbar } from './PrismoidToolbar.js'
 
 
 
@@ -33,7 +33,7 @@ export function Prismoid(props) {
 	const hasToolbar = useMemo(() => {
 		return Children
 			.toArray(children)
-			.some(child => child.type === Toolbar(props))
+			.some(child => child.type === PrismoidToolbar(props))
 	}, [children])
 
 	const providerValue = useMemo(() => {

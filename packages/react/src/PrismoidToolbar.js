@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 
 
 
-export function Toolbar(props) {
+export function PrismoidToolbar(props) {
 	const { children } = props
 
 	const toolbarItems = useMemo(() => {
@@ -35,10 +35,10 @@ export function Toolbar(props) {
 	)
 }
 
-Toolbar.defaultProps = {
+PrismoidToolbar.defaultProps = {
 	children: null,
 }
 
-Toolbar.propTypes = {
+PrismoidToolbar.propTypes = {
 	children: PropTypes.node,
 }
