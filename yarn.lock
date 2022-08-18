@@ -2144,14 +2144,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prismoid/core@file:../core::locator=%40prismoid%2Freact%40workspace%3Apackages%2Freact":
-  version: 0.0.0-development
-  resolution: "@prismoid/core@file:../core#../core::hash=bd1627&locator=%40prismoid%2Freact%40workspace%3Apackages%2Freact"
-  checksum: d31c41dc94161dae469f6a8ed30f7b6978d0edddf6c8dbbe28827ef629ebe3908f56ad93b6c327d958ad2ade4d70b550b7ee6fcce03f583bae474c84594ec813
-  languageName: node
-  linkType: hard
-
-"@prismoid/core@workspace:packages/core":
+"@prismoid/core@workspace:*, @prismoid/core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@prismoid/core@workspace:packages/core"
   dependencies:
@@ -2173,14 +2166,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@prismoid/grammars@file:../grammars::locator=%40prismoid%2Freact%40workspace%3Apackages%2Freact":
-  version: 0.0.0-development
-  resolution: "@prismoid/grammars@file:../grammars#../grammars::hash=e53a08&locator=%40prismoid%2Freact%40workspace%3Apackages%2Freact"
-  checksum: 20bbb03f3430ddb84bf7a14452d7f3e9ecf8aac31748beee2d504a900bc8758fa1dc69af0dc643ff42527dcd344bea273b6c50fdaf639379c081494c9272d6a0
-  languageName: node
-  linkType: hard
-
-"@prismoid/grammars@workspace:packages/grammars":
+"@prismoid/grammars@workspace:*, @prismoid/grammars@workspace:packages/grammars":
   version: 0.0.0-use.local
   resolution: "@prismoid/grammars@workspace:packages/grammars"
   dependencies:
@@ -2208,8 +2194,8 @@ __metadata:
     "@babel/core": ^7.18.2
     "@babel/preset-env": ^7.18.2
     "@babel/preset-react": ^7.17.12
-    "@prismoid/core": "file:../core"
-    "@prismoid/grammars": "file:../grammars"
+    "@prismoid/core": "workspace:*"
+    "@prismoid/grammars": "workspace:*"
     "@rollup/plugin-babel": ^5.3.1
     "@rollup/plugin-commonjs": ^22.0.0
     "@rollup/plugin-node-resolve": ^13.3.0
