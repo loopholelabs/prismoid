@@ -44,8 +44,8 @@ jobs:
       - name: Publish
         run: yarn npm publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          YARN_NPM_PUBLISH_ACCESS: public
 
       - name: Update the changelog
         uses: github-actions-x/commit@v2.9
@@ -93,8 +93,8 @@ jobs:
       - name: Publish
         run: yarn npm publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          YARN_NPM_PUBLISH_ACCESS: public
 
       - name: Update the changelog
         uses: github-actions-x/commit@v2.9
@@ -142,8 +142,8 @@ jobs:
       - name: Publish
         run: yarn npm publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          YARN_NPM_PUBLISH_ACCESS: public
 
       - name: Update the changelog
         uses: github-actions-x/commit@v2.9
