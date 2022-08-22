@@ -6,7 +6,9 @@
       "channel": false,
       "main": true
     },
-    { "name": "v+([0-9]).x.x" }
+    { "name": "v+([0-9]).x.x" },
+    { "name": "beta" },
+    { "name": "alpha" }
   ],
   "plugins": [
     "@semantic-release/commit-analyzer",
@@ -14,7 +16,9 @@
     ["@semantic-release/changelog", {
       "assets": ["docs/CHANGELOG.md"]
     }],
-    "@semantic-release/npm",
+    ["@semantic-release/npm", {
+      "npmPublish": false
+    }],
     "@semantic-release/github"
   ]
 }
